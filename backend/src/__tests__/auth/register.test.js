@@ -23,4 +23,26 @@ describe("POST /api/auth/register", () => {
 
     expect(response.body.data).not.toHaveProperty("password");
   });
+  
+  test("should return 409 if email already exists", async () => {
+  const user = {
+    name: "John Doe",
+    email: "john@example.com",
+    password: "password123",
+  };
+
+  // First registration
+  await request(app)
+    .post("/api/auth/register")
+    .send(user);
+
+  // Duplicate registration
+  const response = await request(app)
+    .post("/api/auth/register")
+    .send(user);
+
+  expect(response.statusCode).toBe(409);
+  expect(response.body.success).toBe(false);
+  expect(response.body.message).toBe("Email already exists");
+});
 });
