@@ -1,4 +1,7 @@
+const bcrypt = require("bcrypt");
 const User = require("../models/user.model");
+
+const SALT_ROUNDS = 10;
 
 const register = async ({ name, email, password }) => {
   const existingUser = await User.findOne({ email });
@@ -9,10 +12,13 @@ const register = async ({ name, email, password }) => {
     throw error;
   }
 
+  // Hash password before storing
+  const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
   const user = await User.create({
     name,
     email,
-    password,
+    password: hashedPassword,
   });
 
   return {
