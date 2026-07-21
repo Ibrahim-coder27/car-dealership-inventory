@@ -3,21 +3,12 @@ const jwt = require("jsonwebtoken");
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
-  // Check if Authorization header exists
-  if (!authHeader) {
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({
       success: false,
       message: "Access token required",
     });
   }
-
-  // Check Bearer format
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-  return res.status(401).json({
-    success: false,
-    message: "Access token required",
-  });
-}g
 
   const token = authHeader.split(" ")[1];
 

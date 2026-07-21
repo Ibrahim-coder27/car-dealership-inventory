@@ -21,4 +21,26 @@ describe("Auth Middleware", () => {
 
     expect(response.body.message).toBe("Access token required");
   });
+
+  const jwt = require("jsonwebtoken");
+
+test("should allow access with a valid token", async () => {
+  const token = jwt.sign(
+    {
+      id: "507f191e810c19729de860ea",
+      role: "customer",
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    }
+  );
+
+  const response = await request(app)
+    .get("/protected")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(response.statusCode).toBe(200);
+  expect(response.body.success).toBe(true);
+});
 });
