@@ -19,9 +19,26 @@ const getVehicleById = async (id) => {
   return vehicle;
 };
 
+const updateVehicle = async (id, vehicleData) => {
+  const updatedVehicle = await Vehicle.findByIdAndUpdate(
+    id,
+    vehicleData,
+    {
+      returnDocument: "after",
+      runValidators: true,
+    }
+  );
+
+  if (!updatedVehicle) {
+    throw new AppError("Vehicle not found", 404);
+  }
+
+  return updatedVehicle;
+};
 
 module.exports = {
   createVehicle,
   getAllVehicles,
   getVehicleById,
+  updateVehicle,
 };

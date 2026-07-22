@@ -1,27 +1,26 @@
 const request = require("supertest");
 const app = require("../../app");
-const Vehicle = require("../../models/vehicle.model");
+
+const { createVehicle } = require("../../test-utils/vehicle.helper");
+const { createCustomerToken } = require("../../test-utils/auth.helper");
 
 describe("Get Vehicles", () => {
   test("should return all vehicles", async () => {
-    await Vehicle.create([
-      {
-        make: "Toyota",
-        model: "Fortuner",
-        category: "SUV",
-        price: 4200000,
-        quantity: 5,
-      },
-      {
-        make: "Honda",
-        model: "City",
-        category: "Sedan",
-        price: 1600000,
-        quantity: 10,
-      },
-    ]);
+    await createVehicle({
+      make: "Toyota",
+      model: "Fortuner",
+    });
 
-    const response = await request(app).get("/api/vehicles");
+    await createVehicle({
+      make: "Honda",
+      model: "City",
+    });
+
+    const token = createCustomerToken();
+
+    const response = await request(app)
+      .get("/api/vehicles")
+      .set("Authorization", `Bearer ${token}`);
 
     expect(response.statusCode).toBe(200);
 
@@ -29,10 +28,17 @@ describe("Get Vehicles", () => {
 
     expect(response.body.data).toHaveLength(2);
 
-    expect(response.body.data).toHaveLength(2);
-
-    const makes = response.body.data.map((vehicle) => vehicle.make);
-
-    expect(makes).toEqual(expect.arrayContaining(["Toyota", "Honda"]));
+    expect(response.body.data).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          make: "Toyota",
+          model: "Fortuner",
+        }),
+        expect.objectContaining({
+          make: "Honda",
+          model: "City",
+        }),
+      ])
+    );
   });
 });

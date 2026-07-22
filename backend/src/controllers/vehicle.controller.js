@@ -39,9 +39,26 @@ const getVehicleById = async (req, res, next) => {
   }
 };
 
+const updateVehicle = async (req, res, next) => {
+  try {
+    const vehicle = await vehicleService.updateVehicle(
+      req.params.id,
+      req.body
+    );
+
+    res.status(200).json({
+      success: true,
+      data: vehicle,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createVehicle,
   getAllVehicles,
   getVehicleById,
+  updateVehicle,
 };
 

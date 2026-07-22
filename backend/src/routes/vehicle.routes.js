@@ -8,17 +8,30 @@ const authMiddleware = require("../middleware/auth.middleware");
 const authorize = require("../middleware/authorize.middleware");
 const validateObjectId = require("../middleware/validateObjectId.middleware");
 
-router.get("/", vehicleController.getAllVehicles);
-router.get(
-  "/:id",
-  validateObjectId,
-  vehicleController.getVehicleById
-);
 router.post(
   "/",
   authMiddleware,
   vehicleController.createVehicle
 );
 
+router.get(
+  "/",
+  authMiddleware,
+  vehicleController.getAllVehicles
+);
+
+router.get(
+  "/:id",
+  authMiddleware,
+  validateObjectId,
+  vehicleController.getVehicleById
+);
+
+router.put(
+  "/:id",
+  authMiddleware,
+  validateObjectId,
+  vehicleController.updateVehicle
+);
 
 module.exports = router;

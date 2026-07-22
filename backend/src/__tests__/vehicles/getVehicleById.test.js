@@ -1,46 +1,48 @@
 const request = require("supertest");
 const app = require("../../app");
-const Vehicle = require("../../models/vehicle.model");
+
+const { createVehicle } = require("../../test-utils/vehicle.helper");
+const { createCustomerToken } = require("../../test-utils/auth.helper");
 
 describe("Get Vehicle By ID", () => {
   test("should return a vehicle by id", async () => {
-    const vehicle = await Vehicle.create({
-      make: "Toyota",
-      model: "Fortuner",
-      category: "SUV",
-      price: 4200000,
-      quantity: 5,
-    });
+    const vehicle = await createVehicle();
 
-    const response = await request(app).get(
-      `/api/vehicles/${vehicle._id}`
-    );
+    const token = createCustomerToken();
+
+    const response = await request(app)
+      .get(`/api/vehicles/${vehicle._id}`)
+      .set("Authorization", `Bearer ${token}`);
 
     expect(response.statusCode).toBe(200);
 
     expect(response.body.success).toBe(true);
 
-    expect(response.body.data.make).toBe("Toyota");
-
-    expect(response.body.data.model).toBe("Fortuner");
+    expect(response.body.data.make).toBe(vehicle.make);
+    expect(response.body.data.model).toBe(vehicle.model);
   });
 
   test("should return 404 when vehicle does not exist", async () => {
-  const response = await request(app).get(
-    "/api/vehicles/507f191e810c19729de860ea"
-  );
+    const token = createCustomerToken();
 
-  expect(response.statusCode).toBe(404);
-  expect(response.body.success).toBe(false);
-  expect(response.body.message).toBe("Vehicle not found");
-});
+    const response = await request(app)
+      .get("/api/vehicles/507f191e810c19729de860ea")
+      .set("Authorization", `Bearer ${token}`);
 
-test("should return 400 when vehicle id is invalid", async () => {
-  const response = await request(app).get("/api/vehicles/abc");
+    expect(response.statusCode).toBe(404);
+    expect(response.body.success).toBe(false);
+    expect(response.body.message).toBe("Vehicle not found");
+  });
 
-  expect(response.statusCode).toBe(400);
-  expect(response.body.success).toBe(false);
-  expect(response.body.message).toBe("Invalid vehicle id");
-});
+  test("should return 400 when vehicle id is invalid", async () => {
+    const token = createCustomerToken();
 
+    const response = await request(app)
+      .get("/api/vehicles/abc")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body.success).toBe(false);
+    expect(response.body.message).toBe("Invalid vehicle id");
+  });
 });
