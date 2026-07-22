@@ -126,7 +126,7 @@ test("should return 400 for an invalid vehicle id", async () => {
 
   expect(response.body.success).toBe(false);
 
-  expect(response.body.message).toBe("Invalid vehicle ID");
+  expect(response.body.message).toBe("Invalid vehicle id");
 });
 
 });

@@ -29,6 +29,7 @@ router.get(
 router.post(
   "/:id/purchase",
   authMiddleware,
+  validateObjectId,
   vehicleController.purchaseVehicle
 );
 
