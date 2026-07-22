@@ -42,4 +42,47 @@ describe("Purchase Vehicle", () => {
 
     expect(updatedVehicle.quantity).toBe(7);
   });
+
+  test("should return 404 if vehicle does not exist", async () => {
+    const token = createCustomerToken();
+
+    const nonExistingId = "507f191e810c19729de860ea";
+
+    const response = await request(app)
+      .post(`/api/vehicles/${nonExistingId}/purchase`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        quantity: 2,
+      });
+
+    expect(response.statusCode).toBe(404);
+
+    expect(response.body.success).toBe(false);
+
+    expect(response.body.message).toBe("Vehicle not found");
+  });
+
+  test("should return 400 if purchase quantity is less than or equal to zero", async () => {
+  const vehicle = await createVehicle({
+    quantity: 10,
+  });
+
+  const token = createCustomerToken();
+
+  const response = await request(app)
+    .post(`/api/vehicles/${vehicle._id}/purchase`)
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      quantity: 0,
+    });
+
+  expect(response.statusCode).toBe(400);
+
+  expect(response.body.success).toBe(false);
+
+  expect(response.body.message).toBe(
+    "Purchase quantity must be greater than 0"
+  );
+});
+
 });
