@@ -190,4 +190,121 @@ test("should search vehicles by maximum price", async () => {
   expect(response.body.data[0].make).toBe("Honda");
 });
 
+test("should search vehicles by minimum price", async () => {
+  await createVehicle({
+    make: "Toyota",
+    model: "Fortuner",
+    category: "SUV",
+    price: 1000000,
+  });
+
+  await createVehicle({
+    make: "Honda",
+    model: "City",
+    category: "Sedan",
+    price: 2000000,
+  });
+
+  await createVehicle({
+    make: "BMW",
+    model: "X5",
+    category: "SUV",
+    price: 5000000,
+  });
+
+  const token = createCustomerToken();
+
+  const response = await request(app)
+    .get("/api/vehicles/search?minPrice=2000000")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(response.statusCode).toBe(200);
+  expect(response.body.success).toBe(true);
+
+  expect(response.body.data).toHaveLength(2);
+
+  expect(response.body.data).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ make: "Honda" }),
+      expect.objectContaining({ make: "BMW" }),
+    ])
+  );
+});
+
+test("should search vehicles by maximum price", async () => {
+  await createVehicle({
+    make: "Toyota",
+    model: "Fortuner",
+    category: "SUV",
+    price: 1000000,
+  });
+
+  await createVehicle({
+    make: "Honda",
+    model: "City",
+    category: "Sedan",
+    price: 2000000,
+  });
+
+  await createVehicle({
+    make: "BMW",
+    model: "X5",
+    category: "SUV",
+    price: 5000000,
+  });
+
+  const token = createCustomerToken();
+
+  const response = await request(app)
+    .get("/api/vehicles/search?maxPrice=2000000")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(response.statusCode).toBe(200);
+  expect(response.body.success).toBe(true);
+
+  expect(response.body.data).toHaveLength(2);
+
+  expect(response.body.data).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ make: "Toyota" }),
+      expect.objectContaining({ make: "Honda" }),
+    ])
+  );
+});
+
+test("should search vehicles within a price range", async () => {
+  await createVehicle({
+    make: "Toyota",
+    model: "Fortuner",
+    category: "SUV",
+    price: 1000000,
+  });
+
+  await createVehicle({
+    make: "Honda",
+    model: "City",
+    category: "Sedan",
+    price: 2000000,
+  });
+
+  await createVehicle({
+    make: "BMW",
+    model: "X5",
+    category: "SUV",
+    price: 5000000,
+  });
+
+  const token = createCustomerToken();
+
+  const response = await request(app)
+    .get("/api/vehicles/search?minPrice=1500000&maxPrice=3000000")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(response.statusCode).toBe(200);
+  expect(response.body.success).toBe(true);
+
+  expect(response.body.data).toHaveLength(1);
+  expect(response.body.data[0].make).toBe("Honda");
+});
+
 });
