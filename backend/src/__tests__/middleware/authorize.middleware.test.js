@@ -31,4 +31,29 @@ describe("Authorization Middleware", () => {
 
     expect(response.body.message).toBe("Access denied");
   });
+
+  test("should allow access when user has required role", async () => {
+  const adminApp = express();
+
+  adminApp.use((req, res, next) => {
+    req.user = {
+      id: "123",
+      role: "admin",
+    };
+    next();
+  });
+
+  adminApp.get("/admin", authorize("admin"), (req, res) => {
+    res.status(200).json({
+      success: true,
+      message: "Welcome Admin",
+    });
+  });
+
+  const response = await request(adminApp).get("/admin");
+
+  expect(response.statusCode).toBe(200);
+  expect(response.body.success).toBe(true);
+  expect(response.body.message).toBe("Welcome Admin");
+});
 });
