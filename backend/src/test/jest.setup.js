@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config({
   path: ".env.test",
+  quiet: true,
 });
 
 beforeAll(async () => {
