@@ -26,8 +26,22 @@ const getAllVehicles = async (req, res, next) => {
   }
 };
 
+const getVehicleById = async (req, res, next) => {
+  try {
+    const vehicle = await vehicleService.getVehicleById(req.params.id);
+
+    res.status(200).json({
+      success: true,
+      data: vehicle,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createVehicle,
   getAllVehicles,
+  getVehicleById,
 };
 

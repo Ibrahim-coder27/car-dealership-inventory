@@ -7,6 +7,8 @@ const vehicleController = require("../controllers/vehicle.controller");
 const authMiddleware = require("../middleware/auth.middleware");
 const authorize = require("../middleware/authorize.middleware");
 
+router.get("/", vehicleController.getAllVehicles);
+router.get("/:id", vehicleController.getVehicleById);
 router.post(
   "/",
   authMiddleware,
@@ -14,6 +16,5 @@ router.post(
   vehicleController.createVehicle
 );
 
-router.get("/", vehicleController.getAllVehicles);
 
 module.exports = router;

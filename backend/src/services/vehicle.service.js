@@ -8,7 +8,12 @@ const getAllVehicles = async () => {
   return await Vehicle.find();
 };
 
+const getVehicleById = async (id) => {
+  return await Vehicle.findById(id);
+};
+
 module.exports = {
   createVehicle,
   getAllVehicles,
+  getVehicleById,
 };
