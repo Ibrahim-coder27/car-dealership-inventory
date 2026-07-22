@@ -82,8 +82,16 @@ const searchVehicles = async (query) => {
 
   return await Vehicle.find(filter);
 };
+
 const purchaseVehicle = async (id, purchaseData) => {
   const { quantity } = purchaseData;
+
+  if (quantity <= 0) {
+    throw new AppError(
+      "Purchase quantity must be greater than 0",
+      400
+    );
+  }
 
   const vehicle = await getVehicleById(id);
 
