@@ -95,7 +95,14 @@ const purchaseVehicle = async (id, purchaseData) => {
 
   const vehicle = await getVehicleById(id);
 
-  vehicle.quantity = vehicle.quantity - quantity;
+  if (quantity > vehicle.quantity) {
+    throw new AppError(
+      "Insufficient stock available",
+      400
+    );
+  }
+
+  vehicle.quantity -= quantity;
 
   await vehicle.save();
 
