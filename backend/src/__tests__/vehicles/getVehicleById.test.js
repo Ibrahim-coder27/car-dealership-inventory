@@ -45,4 +45,27 @@ describe("Get Vehicle By ID", () => {
     expect(response.body.success).toBe(false);
     expect(response.body.message).toBe("Invalid vehicle id");
   });
+
+  test("should return availability as Out of Stock when quantity is zero", async () => {
+  const vehicle = await createVehicle({
+    quantity: 0,
+  });
+
+  const token = createCustomerToken();
+
+  const response = await request(app)
+    .get(`/api/vehicles/${vehicle._id}`)
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(response.statusCode).toBe(200);
+
+  expect(response.body.success).toBe(true);
+
+  expect(response.body.data.quantity).toBe(0);
+
+  expect(response.body.data.availability).toBe(
+    "Out of Stock"
+  );
+});
+
 });
