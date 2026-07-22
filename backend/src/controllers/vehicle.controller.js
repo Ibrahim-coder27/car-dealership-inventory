@@ -55,10 +55,24 @@ const updateVehicle = async (req, res, next) => {
   }
 };
 
+const deleteVehicle = async (req, res, next) => {
+  try {
+    await vehicleService.deleteVehicle(req.params.id);
+
+    res.status(200).json({
+      success: true,
+      message: "Vehicle deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createVehicle,
   getAllVehicles,
   getVehicleById,
   updateVehicle,
+  deleteVehicle,
 };
 

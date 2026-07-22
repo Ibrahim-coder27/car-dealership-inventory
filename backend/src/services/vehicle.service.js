@@ -36,9 +36,18 @@ const updateVehicle = async (id, vehicleData) => {
   return updatedVehicle;
 };
 
+const deleteVehicle = async (id) => {
+  const deletedVehicle = await Vehicle.findByIdAndDelete(id);
+
+  if (!deletedVehicle) {
+    throw new AppError("Vehicle not found", 404);
+  }
+};
+
 module.exports = {
   createVehicle,
   getAllVehicles,
   getVehicleById,
   updateVehicle,
+  deleteVehicle,
 };
