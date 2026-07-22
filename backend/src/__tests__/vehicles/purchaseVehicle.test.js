@@ -85,4 +85,31 @@ describe("Purchase Vehicle", () => {
   );
 });
 
+test("should return 400 if purchase quantity exceeds available stock", async () => {
+  const vehicle = await createVehicle({
+    quantity: 5,
+  });
+
+  const token = createCustomerToken();
+
+  const response = await request(app)
+    .post(`/api/vehicles/${vehicle._id}/purchase`)
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      quantity: 8,
+    });
+
+  expect(response.statusCode).toBe(400);
+
+  expect(response.body.success).toBe(false);
+
+  expect(response.body.message).toBe(
+    "Insufficient stock available"
+  );
+
+  const updatedVehicle = await Vehicle.findById(vehicle._id);
+
+  expect(updatedVehicle.quantity).toBe(5);
+});
+
 });
