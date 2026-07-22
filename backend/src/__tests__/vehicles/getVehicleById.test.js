@@ -34,4 +34,13 @@ describe("Get Vehicle By ID", () => {
   expect(response.body.success).toBe(false);
   expect(response.body.message).toBe("Vehicle not found");
 });
+
+test("should return 400 when vehicle id is invalid", async () => {
+  const response = await request(app).get("/api/vehicles/abc");
+
+  expect(response.statusCode).toBe(400);
+  expect(response.body.success).toBe(false);
+  expect(response.body.message).toBe("Invalid vehicle id");
+});
+
 });
