@@ -21,6 +21,12 @@ router.get(
 );
 
 router.get(
+  "/search",
+  authMiddleware,
+  vehicleController.searchVehicles
+);
+
+router.get(
   "/:id",
   authMiddleware,
   validateObjectId,
@@ -41,5 +47,6 @@ router.delete(
   validateObjectId,
   vehicleController.deleteVehicle
 );
+
 
 module.exports = router;

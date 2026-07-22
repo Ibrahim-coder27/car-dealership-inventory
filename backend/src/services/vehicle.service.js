@@ -44,10 +44,38 @@ const deleteVehicle = async (id) => {
   }
 };
 
+const searchVehicles = async (query) => {
+  const filter = {};
+
+  if (query.make) {
+    filter.make = {
+      $regex: query.make,
+      $options: "i",
+    };
+  }
+
+  if (query.model) {
+    filter.model = {
+      $regex: query.model,
+      $options: "i",
+    };
+  }
+
+  if (query.category) {
+    filter.category = {
+      $regex: query.category,
+      $options: "i",
+    };
+  }
+
+  return await Vehicle.find(filter);
+};
+
 module.exports = {
   createVehicle,
   getAllVehicles,
   getVehicleById,
   updateVehicle,
   deleteVehicle,
+  searchVehicles,
 };

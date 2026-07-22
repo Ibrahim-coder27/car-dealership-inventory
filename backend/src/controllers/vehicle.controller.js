@@ -49,10 +49,20 @@ const deleteVehicle = asyncHandler(async (req, res) => {
   });
 });
 
+const searchVehicles = asyncHandler(async (req, res) => {
+  const vehicles = await vehicleService.searchVehicles(req.query);
+
+  res.status(200).json({
+    success: true,
+    data: vehicles,
+  });
+});
+
 module.exports = {
   createVehicle,
   getAllVehicles,
   getVehicleById,
   updateVehicle,
   deleteVehicle,
+  searchVehicles,
 };
