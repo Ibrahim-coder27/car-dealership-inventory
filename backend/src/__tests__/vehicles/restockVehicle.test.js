@@ -63,4 +63,31 @@ describe("Restock Vehicle", () => {
   expect(response.body.message).toBe("Vehicle not found");
 });
 
+test("should return 400 if restock quantity is less than or equal to zero", async () => {
+  const vehicle = await createVehicle({
+    quantity: 10,
+  });
+
+  const token = createAdminToken();
+
+  const response = await request(app)
+    .post(`/api/vehicles/${vehicle._id}/restock`)
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      quantity: 0,
+    });
+
+  expect(response.statusCode).toBe(400);
+
+  expect(response.body.success).toBe(false);
+
+  expect(response.body.message).toBe(
+    "Restock quantity must be greater than 0"
+  );
+
+  const updatedVehicle = await Vehicle.findById(vehicle._id);
+
+  expect(updatedVehicle.quantity).toBe(10);
+});
+
 });
