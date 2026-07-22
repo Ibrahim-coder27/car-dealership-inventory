@@ -24,4 +24,14 @@ describe("Get Vehicle By ID", () => {
 
     expect(response.body.data.model).toBe("Fortuner");
   });
+
+  test("should return 404 when vehicle does not exist", async () => {
+  const response = await request(app).get(
+    "/api/vehicles/507f191e810c19729de860ea"
+  );
+
+  expect(response.statusCode).toBe(404);
+  expect(response.body.success).toBe(false);
+  expect(response.body.message).toBe("Vehicle not found");
+});
 });
