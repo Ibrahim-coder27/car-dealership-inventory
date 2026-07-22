@@ -1,86 +1,62 @@
 const Vehicle = require("../models/vehicle.model");
 const AppError = require("../utils/AppError");
-const addAvailability = require("../utils/vehicleAvailability");
-const createVehicle = async (vehicleData) => {
-  return await Vehicle.create(vehicleData);
-};
 
-const getAllVehicles = async () => {
-  return await Vehicle.find();
-};
+const {
+  mapVehicleResponse,
+  mapVehicleListResponse,
+} = require("../utils/vehicleResponse");
 
-const getVehicleById = async (id) => {
+const getVehicleDocument = async (id) => {
   const vehicle = await Vehicle.findById(id);
 
   if (!vehicle) {
     throw new AppError("Vehicle not found", 404);
   }
 
-  return addAvailability(vehicle);
+  return vehicle;
+};
+
+const createVehicle = async (vehicleData) => {
+  const vehicle = await Vehicle.create(vehicleData);
+
+  return mapVehicleResponse(vehicle);
+};
+
+const getAllVehicles = async () => {
+  const vehicles = await Vehicle.find();
+
+  return mapVehicleListResponse(vehicles);
+};
+
+const getVehicleById = async (id) => {
+  const vehicle = await getVehicleDocument(id);
+
+  return mapVehicleResponse(vehicle);
 };
 
 const updateVehicle = async (id, vehicleData) => {
-  const updatedVehicle = await Vehicle.findByIdAndUpdate(
-    id,
-    vehicleData,
-    {
-      returnDocument: "after",
-      runValidators: true,
-    }
-  );
+  const vehicle = await Vehicle.findByIdAndUpdate(
+  id,
+  vehicleData,
+  {
+    returnDocument: "after",
+    runValidators: true,
+  }
+);
 
-  if (!updatedVehicle) {
+  if (!vehicle) {
     throw new AppError("Vehicle not found", 404);
   }
 
-  return updatedVehicle;
+  return mapVehicleResponse(vehicle);
 };
 
 const deleteVehicle = async (id) => {
-  const deletedVehicle = await Vehicle.findByIdAndDelete(id);
+  const vehicle = await Vehicle.findByIdAndDelete(id);
 
-  if (!deletedVehicle) {
+  if (!vehicle) {
     throw new AppError("Vehicle not found", 404);
   }
-};
-
-const searchVehicles = async (query) => {
-  const filter = {};
-
-  if (query.make) {
-    filter.make = {
-      $regex: query.make,
-      $options: "i",
-    };
-  }
-
-  if (query.model) {
-    filter.model = {
-      $regex: query.model,
-      $options: "i",
-    };
-  }
-
-  if (query.category) {
-    filter.category = {
-      $regex: query.category,
-      $options: "i",
-    };
-  }
-
-  if (query.minPrice || query.maxPrice) {
-    filter.price = {};
-
-    if (query.minPrice) {
-      filter.price.$gte = Number(query.minPrice);
-    }
-
-    if (query.maxPrice) {
-      filter.price.$lte = Number(query.maxPrice);
-    }
-  }
-
-  return await Vehicle.find(filter);
 };
 
 const purchaseVehicle = async (id, purchaseData) => {
@@ -93,9 +69,9 @@ const purchaseVehicle = async (id, purchaseData) => {
     );
   }
 
-  const vehicle = await getVehicleById(id);
+  const vehicle = await getVehicleDocument(id);
 
-  if (quantity > vehicle.quantity) {
+  if (vehicle.quantity < quantity) {
     throw new AppError(
       "Insufficient stock available",
       400
@@ -106,7 +82,7 @@ const purchaseVehicle = async (id, purchaseData) => {
 
   await vehicle.save();
 
-  return vehicle;
+  return mapVehicleResponse(vehicle);
 };
 
 const restockVehicle = async (id, restockData) => {
@@ -119,13 +95,65 @@ const restockVehicle = async (id, restockData) => {
     );
   }
 
-  const vehicle = await getVehicleById(id);
+  const vehicle = await getVehicleDocument(id);
 
   vehicle.quantity += quantity;
 
   await vehicle.save();
 
-  return vehicle;
+  return mapVehicleResponse(vehicle);
+};
+
+/**
+ * Search vehicles using optional filters
+ */
+const searchVehicles = async (filters) => {
+  const {
+    make,
+    model,
+    category,
+    minPrice,
+    maxPrice,
+  } = filters;
+
+  const query = {};
+
+  if (make) {
+    query.make = {
+      $regex: make,
+      $options: "i",
+    };
+  }
+
+  if (model) {
+    query.model = {
+      $regex: model,
+      $options: "i",
+    };
+  }
+
+  if (category) {
+    query.category = {
+      $regex: category,
+      $options: "i",
+    };
+  }
+
+  if (minPrice || maxPrice) {
+    query.price = {};
+
+    if (minPrice) {
+      query.price.$gte = Number(minPrice);
+    }
+
+    if (maxPrice) {
+      query.price.$lte = Number(maxPrice);
+    }
+  }
+
+  const vehicles = await Vehicle.find(query);
+
+  return mapVehicleListResponse(vehicles);
 };
 
 module.exports = {
@@ -134,7 +162,7 @@ module.exports = {
   getVehicleById,
   updateVehicle,
   deleteVehicle,
-  searchVehicles,
   purchaseVehicle,
   restockVehicle,
+  searchVehicles,
 };

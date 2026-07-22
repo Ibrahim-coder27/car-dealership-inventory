@@ -49,14 +49,18 @@ const deleteVehicle = asyncHandler(async (req, res) => {
   });
 });
 
-const searchVehicles = asyncHandler(async (req, res) => {
-  const vehicles = await vehicleService.searchVehicles(req.query);
+const searchVehicles = async (req, res, next) => {
+  try {
+    const vehicles = await vehicleService.searchVehicles(req.query);
 
-  res.status(200).json({
-    success: true,
-    data: vehicles,
-  });
-});
+    return res.status(200).json({
+      success: true,
+      data: vehicles,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const purchaseVehicle = asyncHandler(async (req, res) => {
   const vehicle = await vehicleService.purchaseVehicle(
