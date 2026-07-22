@@ -17,7 +17,6 @@ router.get(
 router.post(
   "/",
   authMiddleware,
-  authorize("admin"),
   vehicleController.createVehicle
 );
 
