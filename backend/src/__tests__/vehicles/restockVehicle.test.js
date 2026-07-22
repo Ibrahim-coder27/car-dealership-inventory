@@ -106,4 +106,35 @@ test("should return 400 for an invalid vehicle id", async () => {
 
   expect(response.body.message).toBe("Invalid vehicle id");
 });
+
+const {
+  createCustomerToken,
+} = require("../../test-utils/auth.helper");
+
+test("should return 403 when a customer tries to restock a vehicle", async () => {
+  const vehicle = await createVehicle({
+    quantity: 10,
+  });
+
+  const token = createCustomerToken();
+
+  const response = await request(app)
+    .post(`/api/vehicles/${vehicle._id}/restock`)
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      quantity: 5,
+    });
+
+  expect(response.statusCode).toBe(403);
+
+  expect(response.body.success).toBe(false);
+
+  // Match the message used by your authorize middleware.
+  expect(response.body.message).toBe("Access denied");
+
+  const updatedVehicle = await Vehicle.findById(vehicle._id);
+
+  expect(updatedVehicle.quantity).toBe(10);
+});
+
 });
