@@ -14,4 +14,6 @@ router.post(
   vehicleController.createVehicle
 );
 
+router.get("/", vehicleController.getAllVehicles);
+
 module.exports = router;
