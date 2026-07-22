@@ -43,4 +43,24 @@ describe("Restock Vehicle", () => {
 
     expect(updatedVehicle.quantity).toBe(15);
   });
+
+  test("should return 404 if vehicle does not exist", async () => {
+  const token = createAdminToken();
+
+  const nonExistingId = "507f191e810c19729de860ea";
+
+  const response = await request(app)
+    .post(`/api/vehicles/${nonExistingId}/restock`)
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      quantity: 5,
+    });
+
+  expect(response.statusCode).toBe(404);
+
+  expect(response.body.success).toBe(false);
+
+  expect(response.body.message).toBe("Vehicle not found");
+});
+
 });
