@@ -109,6 +109,18 @@ const purchaseVehicle = async (id, purchaseData) => {
   return vehicle;
 };
 
+const restockVehicle = async (id, restockData) => {
+  const { quantity } = restockData;
+
+  const vehicle = await getVehicleById(id);
+
+  vehicle.quantity += quantity;
+
+  await vehicle.save();
+
+  return vehicle;
+};
+
 module.exports = {
   createVehicle,
   getAllVehicles,
@@ -117,4 +129,5 @@ module.exports = {
   deleteVehicle,
   searchVehicles,
   purchaseVehicle,
+  restockVehicle,
 };

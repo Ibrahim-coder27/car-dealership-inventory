@@ -71,6 +71,19 @@ const purchaseVehicle = asyncHandler(async (req, res) => {
   });
 });
 
+const restockVehicle = asyncHandler(async (req, res) => {
+  const vehicle = await vehicleService.restockVehicle(
+    req.params.id,
+    req.body
+  );
+
+  res.status(200).json({
+    success: true,
+    message: "Vehicle restocked successfully",
+    data: vehicle,
+  });
+});
+
 module.exports = {
   createVehicle,
   getAllVehicles,
@@ -79,4 +92,5 @@ module.exports = {
   deleteVehicle,
   searchVehicles,
   purchaseVehicle,
+  restockVehicle,
 };

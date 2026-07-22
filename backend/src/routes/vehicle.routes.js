@@ -33,6 +33,14 @@ router.post(
   vehicleController.purchaseVehicle
 );
 
+router.post(
+  "/:id/restock",
+  authMiddleware,
+  authorize("admin"),
+  validateObjectId,
+  vehicleController.restockVehicle
+);
+
 router.get(
   "/:id",
   authMiddleware,
