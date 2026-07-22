@@ -112,6 +112,13 @@ const purchaseVehicle = async (id, purchaseData) => {
 const restockVehicle = async (id, restockData) => {
   const { quantity } = restockData;
 
+  if (quantity <= 0) {
+    throw new AppError(
+      "Restock quantity must be greater than 0",
+      400
+    );
+  }
+
   const vehicle = await getVehicleById(id);
 
   vehicle.quantity += quantity;
