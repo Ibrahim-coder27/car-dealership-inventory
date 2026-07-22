@@ -14,8 +14,8 @@ const vehicleSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ["SUV", "Sedan", "Hatchback", "Truck"],
       required: true,
+      enum: ["SUV", "Sedan", "Hatchback", "Truck"],
     },
     price: {
       type: Number,
