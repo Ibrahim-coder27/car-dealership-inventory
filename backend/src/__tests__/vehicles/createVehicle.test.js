@@ -3,9 +3,22 @@ const app = require("../../app");
 const jwt = require("jsonwebtoken");
 
 describe("Create Vehicle", () => {
-  test("should allow an admin to create a vehicle", async () => {
+
+test("should allow an admin to create a vehicle", async () => {
+  const adminToken = jwt.sign(
+    {
+      id: "507f191e810c19729de860ea",
+      role: "admin",
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    }
+  );
+
   const response = await request(app)
     .post("/api/vehicles")
+    .set("Authorization", `Bearer ${adminToken}`)
     .send({
       make: "Toyota",
       model: "Fortuner",

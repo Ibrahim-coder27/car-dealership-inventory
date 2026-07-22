@@ -4,6 +4,14 @@ const router = express.Router();
 
 const vehicleController = require("../controllers/vehicle.controller");
 
-router.post("/", vehicleController.createVehicle);
+const authMiddleware = require("../middleware/auth.middleware");
+const authorize = require("../middleware/authorize.middleware");
+
+router.post(
+  "/",
+  authMiddleware,
+  authorize("admin"),
+  vehicleController.createVehicle
+);
 
 module.exports = router;
