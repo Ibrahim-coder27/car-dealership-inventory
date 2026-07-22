@@ -1,6 +1,6 @@
 const Vehicle = require("../models/vehicle.model");
 const AppError = require("../utils/AppError");
-
+const addAvailability = require("../utils/vehicleAvailability");
 const createVehicle = async (vehicleData) => {
   return await Vehicle.create(vehicleData);
 };
@@ -16,13 +16,7 @@ const getVehicleById = async (id) => {
     throw new AppError("Vehicle not found", 404);
   }
 
-  return {
-  ...vehicle.toObject(),
-  availability:
-    vehicle.quantity > 0
-      ? "In Stock"
-      : "Out of Stock",
-};
+  return addAvailability(vehicle);
 };
 
 const updateVehicle = async (id, vehicleData) => {
