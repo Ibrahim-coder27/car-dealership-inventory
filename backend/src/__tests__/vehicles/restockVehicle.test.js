@@ -90,5 +90,20 @@ test("should return 400 if restock quantity is less than or equal to zero", asyn
   expect(updatedVehicle.quantity).toBe(10);
 });
 
+test("should return 400 for an invalid vehicle id", async () => {
+  const token = createAdminToken();
 
+  const response = await request(app)
+    .post("/api/vehicles/invalid-id/restock")
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      quantity: 5,
+    });
+
+  expect(response.statusCode).toBe(400);
+
+  expect(response.body.success).toBe(false);
+
+  expect(response.body.message).toBe("Invalid vehicle id");
+});
 });
