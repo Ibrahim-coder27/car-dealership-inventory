@@ -112,4 +112,21 @@ test("should return 400 if purchase quantity exceeds available stock", async () 
   expect(updatedVehicle.quantity).toBe(5);
 });
 
+test("should return 400 for an invalid vehicle id", async () => {
+  const token = createCustomerToken();
+
+  const response = await request(app)
+    .post("/api/vehicles/123/purchase")
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      quantity: 1,
+    });
+
+  expect(response.statusCode).toBe(400);
+
+  expect(response.body.success).toBe(false);
+
+  expect(response.body.message).toBe("Invalid vehicle ID");
+});
+
 });
