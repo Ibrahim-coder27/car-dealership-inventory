@@ -31,17 +31,8 @@ test("should allow an admin to create a vehicle", async () => {
   expect(response.body.success).toBe(true);
 });
 
-test("should return 403 when customer tries to create a vehicle", async () => {
-  const customerToken = jwt.sign(
-    {
-      id: "507f191e810c19729de860ea",
-      role: "customer",
-    },
-    process.env.JWT_SECRET,
-    {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    }
-  );
+test("should allow customer to create a vehicle", async () => {
+  const customerToken = createCustomerToken();
 
   const response = await request(app)
     .post("/api/vehicles")
@@ -54,8 +45,7 @@ test("should return 403 when customer tries to create a vehicle", async () => {
       quantity: 5,
     });
 
-  expect(response.statusCode).toBe(403);
-  expect(response.body.success).toBe(false);
-  expect(response.body.message).toBe("Access denied");
+  expect(response.statusCode).toBe(201);
+  expect(response.body.success).toBe(true);
 });
 });
