@@ -82,6 +82,17 @@ const searchVehicles = async (query) => {
 
   return await Vehicle.find(filter);
 };
+const purchaseVehicle = async (id, purchaseData) => {
+  const { quantity } = purchaseData;
+
+  const vehicle = await getVehicleById(id);
+
+  vehicle.quantity = vehicle.quantity - quantity;
+
+  await vehicle.save();
+
+  return vehicle;
+};
 
 module.exports = {
   createVehicle,
@@ -90,4 +101,5 @@ module.exports = {
   updateVehicle,
   deleteVehicle,
   searchVehicles,
+  purchaseVehicle,
 };

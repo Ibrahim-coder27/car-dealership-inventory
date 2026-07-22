@@ -58,6 +58,19 @@ const searchVehicles = asyncHandler(async (req, res) => {
   });
 });
 
+const purchaseVehicle = asyncHandler(async (req, res) => {
+  const vehicle = await vehicleService.purchaseVehicle(
+    req.params.id,
+    req.body
+  );
+
+  res.status(200).json({
+    success: true,
+    message: "Vehicle purchased successfully",
+    data: vehicle,
+  });
+});
+
 module.exports = {
   createVehicle,
   getAllVehicles,
@@ -65,4 +78,5 @@ module.exports = {
   updateVehicle,
   deleteVehicle,
   searchVehicles,
+  purchaseVehicle,
 };

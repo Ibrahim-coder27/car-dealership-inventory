@@ -1,12 +1,14 @@
 const request = require("supertest");
 const app = require("../../app");
 const Vehicle = require("../../models/vehicle.model");
+
 const {
   createCustomerToken,
-} = require("../helpers/auth.helper");
+} = require("../../test-utils/auth.helper");
+
 const {
   createVehicle,
-} = require("../helpers/vehicle.helper");
+} = require("../../test-utils/vehicle.helper");
 
 describe("Purchase Vehicle", () => {
   beforeEach(async () => {
@@ -15,10 +17,6 @@ describe("Purchase Vehicle", () => {
 
   test("should purchase a vehicle successfully", async () => {
     const vehicle = await createVehicle({
-      make: "Toyota",
-      model: "Fortuner",
-      category: "SUV",
-      price: 4500000,
       quantity: 10,
     });
 
@@ -32,7 +30,6 @@ describe("Purchase Vehicle", () => {
       });
 
     expect(response.statusCode).toBe(200);
-
     expect(response.body.success).toBe(true);
 
     expect(response.body.message).toBe(

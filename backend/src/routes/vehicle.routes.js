@@ -26,6 +26,12 @@ router.get(
   vehicleController.searchVehicles
 );
 
+router.post(
+  "/:id/purchase",
+  authMiddleware,
+  vehicleController.purchaseVehicle
+);
+
 router.get(
   "/:id",
   authMiddleware,
