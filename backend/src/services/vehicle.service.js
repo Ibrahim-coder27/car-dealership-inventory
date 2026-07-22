@@ -16,7 +16,13 @@ const getVehicleById = async (id) => {
     throw new AppError("Vehicle not found", 404);
   }
 
-  return vehicle;
+  return {
+  ...vehicle.toObject(),
+  availability:
+    vehicle.quantity > 0
+      ? "In Stock"
+      : "Out of Stock",
+};
 };
 
 const updateVehicle = async (id, vehicleData) => {
