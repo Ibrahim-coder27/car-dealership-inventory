@@ -68,6 +68,18 @@ const searchVehicles = async (query) => {
     };
   }
 
+  if (query.minPrice || query.maxPrice) {
+    filter.price = {};
+
+    if (query.minPrice) {
+      filter.price.$gte = Number(query.minPrice);
+    }
+
+    if (query.maxPrice) {
+      filter.price.$lte = Number(query.maxPrice);
+    }
+  }
+
   return await Vehicle.find(filter);
 };
 
