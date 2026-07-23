@@ -1,10 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const authRoutes = require("./routes/auth.routes");
 const errorHandler = require("./middleware/error.middleware"); 
 const vehicleRoutes = require("./routes/vehicle.routes"); 
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 // Health Check

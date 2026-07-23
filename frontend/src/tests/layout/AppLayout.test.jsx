@@ -1,12 +1,18 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { AuthProvider } from "../../context/AuthContext";
 import AppLayout from "../../layouts/AppLayout";
 
 describe("AppLayout", () => {
   it("renders a shared layout", () => {
     render(
-      <AppLayout>
-        <h1>Dashboard</h1>
-      </AppLayout>
+      <AuthProvider>
+        <MemoryRouter>
+          <AppLayout>
+            <h1>Dashboard</h1>
+          </AppLayout>
+        </MemoryRouter>
+      </AuthProvider>
     );
 
     expect(screen.getByRole("banner")).toBeInTheDocument();

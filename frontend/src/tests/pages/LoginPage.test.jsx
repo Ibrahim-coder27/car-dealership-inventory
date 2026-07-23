@@ -1,10 +1,18 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
+import { AuthProvider } from "../../context/AuthContext";
 import LoginPage from "../../pages/LoginPage";
 
 describe("LoginPage", () => {
   it("renders the login form", () => {
-    render(<LoginPage />);
+    render(
+      <AuthProvider>
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
+      </AuthProvider>
+    );
 
     expect(
       screen.getByRole("heading", {
@@ -24,7 +32,13 @@ describe("LoginPage", () => {
   it("shows validation errors when submitted empty", async () => {
     const user = userEvent.setup();
 
-    render(<LoginPage />);
+    render(
+      <AuthProvider>
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
+      </AuthProvider>
+    );
 
     await user.click(
       screen.getByRole("button", {

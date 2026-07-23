@@ -4,8 +4,9 @@ const jwt = require("jsonwebtoken");
 
 const SALT_ROUNDS = 10;
 
-const register = async ({ name, email, password }) => {
-  const existingUser = await User.findOne({ email });
+const register = async ({ name, email, password, role }) => {
+  const normalizedEmail = email ? email.toLowerCase().trim() : "";
+  const existingUser = await User.findOne({ email: normalizedEmail });
 
   if (existingUser) {
     const error = new Error("Email already exists");
@@ -20,6 +21,7 @@ const register = async ({ name, email, password }) => {
     name,
     email,
     password: hashedPassword,
+    role: role || "customer",
   });
 
   return {
@@ -32,8 +34,9 @@ const register = async ({ name, email, password }) => {
 
 //login
 const login = async ({ email, password }) => {
+  const normalizedEmail = email ? email.toLowerCase().trim() : "";
   // Find user by email
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email: normalizedEmail });
 
   if (!user) {
     const error = new Error("Invalid email or password");
@@ -56,9 +59,9 @@ const login = async ({ email, password }) => {
       id: user._id,
       role: user.role,
     },
-    process.env.JWT_SECRET,
+    process.env.JWT_SECRET || "fallback_secret",
     {
-      expiresIn: process.env.JWT_EXPIRES_IN,
+      expiresIn: process.env.JWT_EXPIRES_IN || "1d",
     }
   );
 

@@ -21,6 +21,9 @@ build/
 .vscode/
 .idea/
 
+# Archive
+*.zip
+
 # OS
 .DS_Store
 Thumbs.db

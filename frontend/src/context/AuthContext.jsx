@@ -1,26 +1,52 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+
+import { authStorage } from "../storage/authStorage";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const login = (userData) => {
-    setUser(userData);
+  useEffect(() => {
+    const storedUser = authStorage.getUser();
+    const storedToken = authStorage.getToken();
+
+    if (storedUser && storedToken) {
+      setUser(storedUser);
+    }
+
+    setLoading(false);
+  }, []);
+
+  const login = ({ user, token }) => {
+    authStorage.saveToken(token);
+    authStorage.saveUser(user);
+
+    setUser(user);
   };
 
   const logout = () => {
+    authStorage.clearSession();
     setUser(null);
   };
 
   const value = useMemo(
     () => ({
       user,
-      isAuthenticated: !!user,
+      loading,
       login,
       logout,
+      isAuthenticated: !!user,
+      isAdmin: user?.role === "admin",
     }),
-    [user]
+    [user, loading]
   );
 
   return (
@@ -34,7 +60,9 @@ export function useAuth() {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error(
+      "useAuth must be used inside AuthProvider"
+    );
   }
 
   return context;

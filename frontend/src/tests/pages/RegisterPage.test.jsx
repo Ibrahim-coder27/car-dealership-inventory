@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import RegisterPage from "../../pages/RegisterPage";
 
 describe("RegisterPage", () => {
   it("renders the registration form", () => {
-    render(<RegisterPage />);
+    render(
+      <MemoryRouter>
+        <RegisterPage />
+      </MemoryRouter>
+    );
 
     expect(
       screen.getByRole("heading", { name: /register/i })
@@ -23,7 +28,11 @@ describe("RegisterPage", () => {
   it("shows validation errors when submitted empty", async () => {
     const user = userEvent.setup();
 
-    render(<RegisterPage />);
+    render(
+      <MemoryRouter>
+        <RegisterPage />
+      </MemoryRouter>
+    );
 
     await user.click(
       screen.getByRole("button", {
@@ -34,8 +43,8 @@ describe("RegisterPage", () => {
     expect(await screen.findByText(/name is required/i)).toBeInTheDocument();
     expect(await screen.findByText(/email is required/i)).toBeInTheDocument();
     expect(
-  await screen.findByText("Password is required")
-).toBeInTheDocument();
+      await screen.findByText("Password is required")
+    ).toBeInTheDocument();
     expect(
       await screen.findByText(/confirm password is required/i)
     ).toBeInTheDocument();
