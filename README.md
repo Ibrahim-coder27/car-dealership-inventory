@@ -1,139 +1,189 @@
-# Car Dealership Inventory System
+# 🚗 AutoVault — Car Dealership Inventory Management System
 
-A full-stack, single-page application (SPA) built to design, manage, and test a Car Dealership Inventory System. The application consists of a robust Express-based REST API backend and a premium React + Tailwind CSS client dashboard frontend, developed adhering to Test-Driven Development (TDD) best practices.
+A full-stack, enterprise-grade Single Page Application (SPA) designed for managing, searching, purchasing, and restocking vehicle inventory across a dealership network. Built with **Node.js, Express, MongoDB (Mongoose), React 19, Tailwind CSS v4, and Vite**, adhering to Test-Driven Development (TDD) principles with 100% passing test suites across both backend (Jest) and frontend (Vitest).
 
 ---
 
-## Technical Stack
+## 🌟 Key Highlights & AI Collaboration
 
-### Backend API
-- **Runtime**: Node.js
+This application was engineered using an agentic AI-assisted workflow:
+- **ChatGPT (OpenAI)**: Leveraged for initial backend REST API architectural design, MongoDB Mongoose schema modeling (`User`, `Vehicle`), stateless JWT authentication middleware, and unit/integration testing with Jest & Supertest.
+- **Antigravity AI (Google DeepMind Agentic Assistant)**: Utilized for end-to-end frontend architecture, Tailwind v4 design system implementation, glassmorphic UI styling, React Context state management (`AuthProvider`), Vite dev server proxying, error handling refinement, and Vitest test suite context encapsulation.
+
+---
+
+## 🛠️ Technology Stack
+
+### Backend Infrastructure
+- **Runtime Environment**: Node.js (v18+)
 - **Framework**: Express (v5)
-- **Database**: MongoDB (Mongoose Object Modeling)
-- **Security**: JWT-based stateless authentication & password hashing via Bcrypt
-- **Testing**: Jest & Supertest
+- **Database**: MongoDB Atlas / Local MongoDB via Mongoose ORM
+- **Authentication**: Stateless JWT (JSON Web Tokens) & Bcrypt password hashing
+- **Middleware**: Express CORS, Custom Error Handler, Async Handler wrapper, Role Authorization middleware
+- **Testing**: Jest & Supertest (43 tests, 13 test suites)
 
-### Frontend SPA
-- **Framework**: React (v19)
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS (v4)
+### Frontend Client
+- **Framework**: React 19
+- **Build Tooling**: Vite 6
+- **Styling & Design System**: Tailwind CSS v4 (`@theme` variables, Inter typography, Glassmorphism)
+- **State & Context**: React Context API (`AuthProvider`), LocalStorage persistence
 - **Routing**: React Router DOM (v7)
-- **HTTP Client**: Axios
-- **Notifications**: React Hot Toast
-- **Form State**: React Hook Form
-- **Testing**: Vitest & React Testing Library
+- **Form Management**: React Hook Form (validation & inline errors)
+- **HTTP Client**: Axios with interceptors
+- **User Feedback**: React Hot Toast & Custom Modal Dialogs
+- **Testing**: Vitest & React Testing Library (16 tests, 10 test files)
 
 ---
 
-## Features
+## 🔒 API Endpoints & Role Permission Matrix
 
-### Authentication & Authorization
-- Secure JWT-based registration and login flows.
-- User roles: `customer` and `admin`.
-- Role-based registration dropdown to easily toggle and test customer vs. admin dashboards.
+All endpoints require standard Bearer JWT Authentication except public authentication routes (`/api/auth/*`).
 
-### Dashboard & Inventory
-- Beautiful glassmorphic UI layout with dark/blue themed headers.
-- Visual statistics panel computing total models, total stock volume, out of stock models, and low stock warnings (under 3 items) in real time.
-- Dynamic vehicle cards showcasing car details (Make, Model, Category), price, and stock levels.
-- Responsive design tailored for all devices (mobile, tablet, desktop).
-
-### Search & Filtering
-- Search and filter controls targeting make, model, category, and price range (min/max).
-- Uses backend search logic (`GET /api/vehicles/search`).
-
-### Operations
-- **Purchase Vehicle**: Any authenticated user can purchase a vehicle. Clicking "Purchase" decrements the quantity of the vehicle in the database and reflects in the UI with a toast notification.
-- **Admin Section (Admin Only)**:
-  - Add New Vehicle Modal (fields: Make, Model, Category, Price, Quantity).
-  - Edit Vehicle Details Modal.
-  - Restock Vehicle Modal (easily add stock numbers).
-  - Delete Vehicle with dynamic confirmations.
+| Module | Method | Endpoint | Auth Required | Role Permission | Description |
+| :--- | :--- | :--- | :---: | :---: | :--- |
+| **Auth** | `POST` | `/api/auth/register` | No | Public | Register new `customer` or `admin` account |
+| **Auth** | `POST` | `/api/auth/login` | No | Public | Authenticate credentials and issue JWT |
+| **Vehicles** | `GET` | `/api/vehicles` | Yes | All (`customer` & `admin`) | Retrieve full list of inventory items |
+| **Vehicles** | `GET` | `/api/vehicles/search` | Yes | All (`customer` & `admin`) | Search by Make, Model, Category, or Price Range |
+| **Vehicles** | `GET` | `/api/vehicles/:id` | Yes | All (`customer` & `admin`) | Fetch detailed vehicle info by ID |
+| **Vehicles** | `POST` | `/api/vehicles` | Yes | All (`customer` & `admin`) | Add a new vehicle to inventory |
+| **Vehicles** | `PUT` | `/api/vehicles/:id` | Yes | All (`customer` & `admin`) | Update existing vehicle attributes |
+| **Vehicles** | `DELETE` | `/api/vehicles/:id` | Yes | **Admin Only** | Permanently remove vehicle from inventory |
+| **Inventory**| `POST` | `/api/vehicles/:id/purchase` | Yes | All (`customer` & `admin`) | Purchase 1 unit of vehicle (decrements quantity) |
+| **Inventory**| `POST` | `/api/vehicles/:id/restock` | Yes | **Admin Only** | Restock vehicle inventory (increments quantity) |
 
 ---
 
-## Setup & Running the Project
+## ✨ Features & User Experience
+
+1. **Role-Based Authentication**:
+   - Users can register as `Customer` or `Admin`.
+   - Admin accounts gain exclusive access to **Restock** and **Delete** actions.
+   - Customers and Admins can browse, search, filter, add, edit, and purchase vehicles.
+
+2. **Real-time Inventory Analytics**:
+   - Hero banner displaying user greeting and active role badge.
+   - Live analytics cards calculating **Total Models**, **Total Stock Volume**, **Out of Stock Count**, and **Low Stock Warnings** (under 3 units).
+
+3. **Interactive Search & Category Tabs**:
+   - One-click category filter pills (`SUV`, `Sedan`, `Hatchback`, `Truck`).
+   - Granular search input fields for Make, Model, Min Price, and Max Price.
+   - Dynamic sorting (`Price: Low to High`, `Price: High to Low`, `Stock: High to Low`, `Make: A-Z`).
+
+4. **Visual Vehicle Cards**:
+   - Category-tailored gradient headers (Indigo for SUV, Blue for Sedan, Emerald for Hatchback, Amber for Truck).
+   - Real-time stock status pills (`In Stock`, `Low Stock`, `Out of Stock`).
+   - Instant purchase button (auto-disabled when stock hits 0).
+
+5. **Modals & Responsive Feedback**:
+   - Glassmorphic modal overlays for Add, Edit, and Restock operations.
+   - Password visibility toggle (Show/Hide) on Login and Register forms.
+   - Toast notifications for success and detailed error responses.
+
+---
+
+## ⚡ Installation & Quick Start
 
 ### Prerequisites
-- Node.js (v18 or higher recommended)
-- npm (v9 or higher recommended)
-- A running MongoDB instance or connection URI (pre-configured in `.env`)
+- Node.js (v18.0.0 or higher)
+- npm (v9.0.0 or higher)
+- MongoDB Instance (MongoDB Atlas URI or local MongoDB)
+
+### 1. Backend Setup
+
+```bash
+# Navigate to backend folder
+cd backend
+
+# Install dependencies
+npm install
+
+# (Optional) Seed the database with realistic dummy vehicles
+npm run seed
+
+# Start development server (runs on http://localhost:5000)
+npm start
+
+# Run Jest unit & integration tests
+npm test
+```
+
+### 2. Frontend Setup
+
+```bash
+# Navigate to frontend folder
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start Vite development server (runs on http://localhost:5173)
+npm run dev
+
+# Run Vitest component & route tests
+npm test
+```
 
 ---
 
-### Running the Backend
+## 🧪 Comprehensive Test Report
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Run the development server (runs on `http://localhost:5000`):
-   ```bash
-   npm run dev
-   ```
-4. Run the Jest test suite:
-   ```bash
-   npm test
-   ```
+Both backend and frontend codebases maintain 100% passing test suites verifying models, endpoints, authorization middlewares, contexts, and UI component behavior.
 
----
-
-### Running the Frontend
-
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Run the development server (runs on `http://localhost:5173`):
-   ```bash
-   npm run dev
-   ```
-4. Run the Vitest test suite:
-   ```bash
-   npm test
-   ```
-
----
-
-## Test Report
-
-Both the backend and frontend include 100% passing test suites verifying authentication middleware, endpoints, routers, hooks, and page renderings.
-
-### Backend Jest Results:
+### Backend Test Suite (Jest & Supertest)
 ```text
 Test Suites: 13 passed, 13 total
 Tests:       43 passed, 43 total
 Snapshots:   0 total
-Time:        25.666 s
+Time:        40.787 s
+Ran all test suites.
 ```
 
-### Frontend Vitest Results:
+### Frontend Test Suite (Vitest & React Testing Library)
 ```text
-Test Files  10 passed (10)
-Tests       16 passed (16)
-Duration    11.38s
+ Test Files  10 passed (10)
+      Tests  16 passed (16)
+   Duration  17.32s
+Ran all test suites.
 ```
 
 ---
 
-## My AI Usage
+## 📜 Repository Structure
 
-### AI Tools Used
-- Google Gemini 3.5 Flash via Antigravity IDE
+```text
+Car_Dealership/
+├── backend/
+│   ├── src/
+│   │   ├── config/          # MongoDB connection & env setup
+│   │   ├── controllers/     # Auth and Vehicle endpoint handlers
+│   │   ├── middleware/      # Auth, Authorize, Error & Validation middlewares
+│   │   ├── models/          # Mongoose schemas (User, Vehicle)
+│   │   ├── routes/          # Express route definitions
+│   │   ├── services/        # Business logic (Auth & Vehicle services)
+│   │   ├── seed.js          # Database dummy data seeder
+│   │   ├── app.js           # Express app setup & CORS
+│   │   └── server.js        # HTTP server entry point
+│   ├── package.json
+│   └── .env
+├── frontend/
+│   ├── src/
+│   │   ├── api/             # Axios client, endpoints & interceptors
+│   │   ├── components/      # UI components (Navbar, Input, Button, Card)
+│   │   ├── context/         # AuthContext provider & useAuth hook
+│   │   ├── layouts/         # AppLayout container with sticky navbar & footer
+│   │   ├── pages/           # HomePage dashboard, LoginPage, RegisterPage, NotFoundPage
+│   │   ├── routes/          # AppRouter & ProtectedRoute components
+│   │   ├── services/        # Frontend API service layer (vehicleService)
+│   │   ├── storage/         # LocalStorage auth state manager
+│   │   └── index.css        # Tailwind v4 theme, Inter font, & animations
+│   ├── package.json
+│   └── vite.config.js
+├── PROMPTS.md               # Prompt engineering history & AI session log
+└── README.md
+```
 
-### How They Were Used
-- **Boilerplate & Routing configuration**: Configured clean context encapsulation inside `<App />` and adjusted tests (`LoginPage.test.jsx`, `RegisterPage.test.jsx`, `AppRouter.test.jsx`) to include `MemoryRouter` and `AuthProvider` providers.
-- **Service Layer Development**: Created `vehicleService.js` to coordinate API queries with Axios and mapped correct models.
-- **Feature & UI Engineering**: Wrote the React template code for the premium dashboard inside `HomePage.jsx` including statistics counters, state handlers for modals, purchase and restock queries, and dynamic filters.
-- **TDD verification & debugging**: Used AI to quickly find that tests were failing due to missing router context or unauthenticated redirects.
+---
 
-### Reflection
-The AI assistant drastically sped up UI rendering, layout alignment, and state mapping. By using the AI to analyze failing testing logs, it correctly diagnosed that the `BrowserRouter` was originally mounted only in the root DOM compiler (`main.jsx`), causing isolated page unit tests to throw navigation exceptions. Wrapping routing contexts natively resolved the errors cleanly.
+## 📄 License
+This project is open-source under the [ISC License](LICENSE).
