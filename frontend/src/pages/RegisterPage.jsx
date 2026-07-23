@@ -1,4 +1,8 @@
+
 import { useForm } from "react-hook-form";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
+import ErrorMessage from "../components/ui/ErrorMessage";
 
 function RegisterPage() {
   const {
@@ -26,7 +30,7 @@ function RegisterPage() {
               Name
             </label>
 
-            <input
+            <Input
               id="name"
               type="text"
               className="w-full rounded-md border px-3 py-2"
@@ -35,11 +39,9 @@ function RegisterPage() {
               })}
             />
 
-            {errors.name && (
-              <p className="mt-1 text-sm text-red-600" role="alert">
-                {errors.name.message}
-              </p>
-            )}
+            <ErrorMessage>
+  {errors.name?.message}
+</ErrorMessage>
           </div>
 
           <div>
@@ -47,7 +49,7 @@ function RegisterPage() {
               Email
             </label>
 
-            <input
+            <Input
               id="email"
               type="email"
               className="w-full rounded-md border px-3 py-2"
@@ -56,11 +58,9 @@ function RegisterPage() {
               })}
             />
 
-            {errors.email && (
-              <p className="mt-1 text-sm text-red-600" role="alert">
-                {errors.email.message}
-              </p>
-            )}
+           <ErrorMessage>
+  {errors.email?.message}
+</ErrorMessage>
           </div>
 
           <div>
@@ -68,7 +68,7 @@ function RegisterPage() {
               Password
             </label>
 
-            <input
+            <Input
               id="password"
               type="password"
               className="w-full rounded-md border px-3 py-2"
@@ -77,11 +77,9 @@ function RegisterPage() {
               })}
             />
 
-            {errors.password && (
-              <p className="mt-1 text-sm text-red-600" role="alert">
-                {errors.password.message}
-              </p>
-            )}
+            <ErrorMessage>
+  {errors.password?.message}
+</ErrorMessage>
           </div>
 
           <div>
@@ -92,7 +90,7 @@ function RegisterPage() {
               Confirm Password
             </label>
 
-            <input
+            <Input
               id="confirmPassword"
               type="password"
               className="w-full rounded-md border px-3 py-2"
@@ -101,19 +99,14 @@ function RegisterPage() {
               })}
             />
 
-            {errors.confirmPassword && (
-              <p className="mt-1 text-sm text-red-600" role="alert">
-                {errors.confirmPassword.message}
-              </p>
-            )}
+            <ErrorMessage>
+  {errors.confirmPassword?.message}
+</ErrorMessage>
           </div>
 
-          <button
-            type="submit"
-            className="w-full rounded-md bg-blue-600 py-2 text-white hover:bg-blue-700"
-          >
-            Register
-          </button>
+          <Button type="submit">
+  Register
+</Button>
         </form>
       </div>
     </div>
