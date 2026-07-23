@@ -1,7 +1,11 @@
 import { useForm } from "react-hook-form";
 
 function RegisterPage() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = () => {};
 
@@ -15,53 +19,69 @@ function RegisterPage() {
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-5"
+          noValidate
         >
           <div>
-            <label
-              htmlFor="name"
-              className="mb-2 block font-medium"
-            >
+            <label htmlFor="name" className="mb-2 block font-medium">
               Name
             </label>
 
             <input
               id="name"
               type="text"
-              {...register("name")}
               className="w-full rounded-md border px-3 py-2"
+              {...register("name", {
+                required: "Name is required",
+              })}
             />
+
+            {errors.name && (
+              <p className="mt-1 text-sm text-red-600" role="alert">
+                {errors.name.message}
+              </p>
+            )}
           </div>
 
           <div>
-            <label
-              htmlFor="email"
-              className="mb-2 block font-medium"
-            >
+            <label htmlFor="email" className="mb-2 block font-medium">
               Email
             </label>
 
             <input
               id="email"
               type="email"
-              {...register("email")}
               className="w-full rounded-md border px-3 py-2"
+              {...register("email", {
+                required: "Email is required",
+              })}
             />
+
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-600" role="alert">
+                {errors.email.message}
+              </p>
+            )}
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="mb-2 block font-medium"
-            >
+            <label htmlFor="password" className="mb-2 block font-medium">
               Password
             </label>
 
             <input
               id="password"
               type="password"
-              {...register("password")}
               className="w-full rounded-md border px-3 py-2"
+              {...register("password", {
+                required: "Password is required",
+              })}
             />
+
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-600" role="alert">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -75,9 +95,17 @@ function RegisterPage() {
             <input
               id="confirmPassword"
               type="password"
-              {...register("confirmPassword")}
               className="w-full rounded-md border px-3 py-2"
+              {...register("confirmPassword", {
+                required: "Confirm Password is required",
+              })}
             />
+
+            {errors.confirmPassword && (
+              <p className="mt-1 text-sm text-red-600" role="alert">
+                {errors.confirmPassword.message}
+              </p>
+            )}
           </div>
 
           <button
