@@ -1,7 +1,11 @@
 import { useForm } from "react-hook-form";
 
 function LoginPage() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = () => {};
 
@@ -10,7 +14,7 @@ function LoginPage() {
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
         <h1 className="mb-6 text-center text-3xl font-bold">Login</h1>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
           <div>
             <label htmlFor="email" className="mb-2 block font-medium">
               Email
@@ -19,9 +23,17 @@ function LoginPage() {
             <input
               id="email"
               type="email"
-              {...register("email")}
               className="w-full rounded-md border px-3 py-2"
+              {...register("email", {
+                required: "Email is required",
+              })}
             />
+
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-600" role="alert">
+                {errors.email.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -32,9 +44,17 @@ function LoginPage() {
             <input
               id="password"
               type="password"
-              {...register("password")}
               className="w-full rounded-md border px-3 py-2"
+              {...register("password", {
+                required: "Password is required",
+              })}
             />
+
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-600" role="alert">
+                {errors.password.message}
+              </p>
+            )}
           </div>
 
           <button
