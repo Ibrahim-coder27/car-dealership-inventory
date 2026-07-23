@@ -4,8 +4,8 @@ import axiosClient from "../../api/axiosClient";
 describe("axiosClient", () => {
   it("uses the correct base URL", () => {
     expect(axiosClient.defaults.baseURL).toBe(
-      "http://localhost:5000/api"
-    );
+  import.meta.env.VITE_API_BASE_URL
+);
   });
 
   it("uses JSON content type", () => {
