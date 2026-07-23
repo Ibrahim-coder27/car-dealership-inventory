@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#3730a3" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#f8fafc" stop-opacity="0.9" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Navbar Preview -->
+  <rect x="40" y="30" width="1120" height="60" rx="16" fill="#ffffff" opacity="0.9" />
+  <circle cx="75" cy="60" r="16" fill="#4f46e5" />
+  <text x="105" y="66" font-family="Inter, sans-serif" font-weight="800" font-size="20" fill="#0f172a">AutoVault</text>
+  <text x="105" y="78" font-family="Inter, sans-serif" font-size="10" fill="#64748b">Dealership Inventory</text>
+  <rect x="950" y="45" width="90" height="30" rx="8" fill="#e0e7ff" />
+  <text x="995" y="65" font-family="Inter, sans-serif" font-weight="600" font-size="12" fill="#4338ca" text-anchor="middle">Dashboard</text>
+  <circle cx="1070" cy="60" r="14" fill="#6366f1" />
+  <text x="1070" y="64" font-family="Inter, sans-serif" font-weight="700" font-size="12" fill="#ffffff" text-anchor="middle">U</text>
+
+  <!-- Hero Header -->
+  <rect x="40" y="110" width="1120" height="110" rx="24" fill="url(#bg)" stroke="#818cf8" stroke-opacity="0.4" stroke-width="2" />
+  <text x="70" y="160" font-family="Inter, sans-serif" font-weight="900" font-size="28" fill="#ffffff">Home Dashboard</text>
+  <text x="70" y="185" font-family="Inter, sans-serif" font-size="14" fill="#c7d2fe">Manage, search, purchase, and restock vehicles across your dealership network in real-time.</text>
+
+  <!-- Stats Grid -->
+  <g transform="translate(40, 240)">
+    <!-- Stat 1 -->
+    <rect x="0" y="0" width="262" height="90" rx="16" fill="url(#cardBg)" />
+    <text x="20" y="30" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#94a3b8" letter-spacing="1">TOTAL MODELS</text>
+    <text x="20" y="70" font-family="Inter, sans-serif" font-weight="900" font-size="32" fill="#0f172a">8</text>
+
+    <!-- Stat 2 -->
+    <rect x="286" y="0" width="262" height="90" rx="16" fill="url(#cardBg)" />
+    <text x="306" y="30" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#94a3b8" letter-spacing="1">TOTAL STOCK</text>
+    <text x="306" y="70" font-family="Inter, sans-serif" font-weight="900" font-size="32" fill="#4f46e5">35</text>
+
+    <!-- Stat 3 -->
+    <rect x="572" y="0" width="262" height="90" rx="16" fill="url(#cardBg)" />
+    <text x="592" y="30" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#94a3b8" letter-spacing="1">OUT OF STOCK</text>
+    <text x="592" y="70" font-family="Inter, sans-serif" font-weight="900" font-size="32" fill="#ef4444">1</text>
+
+    <!-- Stat 4 -->
+    <rect x="858" y="0" width="262" height="90" rx="16" fill="url(#cardBg)" />
+    <text x="878" y="30" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#94a3b8" letter-spacing="1">LOW STOCK</text>
+    <text x="878" y="70" font-family="Inter, sans-serif" font-weight="900" font-size="32" fill="#f59e0b">2</text>
+  </g>
+
+  <!-- Search & Filter Panel -->
+  <rect x="40" y="350" width="1120" height="240" rx="24" fill="url(#cardBg)" />
+  <text x="70" y="390" font-family="Inter, sans-serif" font-weight="800" font-size="18" fill="#0f172a">Search &amp; Filter Inventory</text>
+  <text x="70" y="410" font-family="Inter, sans-serif" font-size="12" fill="#94a3b8">Filter by make, model, price range, or category</text>
+
+  <!-- Category Pills -->
+  <rect x="70" y="430" width="100" height="32" rx="10" fill="#4f46e5" />
+  <text x="120" y="451" font-family="Inter, sans-serif" font-weight="700" font-size="12" fill="#ffffff" text-anchor="middle">All Categories</text>
+
+  <rect x="180" y="430" width="60" height="32" rx="10" fill="#e2e8f0" />
+  <text x="210" y="451" font-family="Inter, sans-serif" font-weight="600" font-size="12" fill="#475569" text-anchor="middle">SUV</text>
+
+  <rect x="250" y="430" width="70" height="32" rx="10" fill="#e2e8f0" />
+  <text x="285" y="451" font-family="Inter, sans-serif" font-weight="600" font-size="12" fill="#475569" text-anchor="middle">Sedan</text>
+
+  <rect x="330" y="430" width="90" height="32" rx="10" fill="#e2e8f0" />
+  <text x="375" y="451" font-family="Inter, sans-serif" font-weight="600" font-size="12" fill="#475569" text-anchor="middle">Hatchback</text>
+
+  <rect x="430" y="430" width="70" height="32" rx="10" fill="#e2e8f0" />
+  <text x="465" y="451" font-family="Inter, sans-serif" font-weight="600" font-size="12" fill="#475569" text-anchor="middle">Truck</text>
+
+  <!-- Input Fields -->
+  <rect x="70" y="480" width="190" height="42" rx="12" fill="#ffffff" stroke="#cbd5e1" />
+  <text x="85" y="506" font-family="Inter, sans-serif" font-size="13" fill="#94a3b8">e.g. Toyota</text>
+
+  <rect x="280" y="480" width="190" height="42" rx="12" fill="#ffffff" stroke="#cbd5e1" />
+  <text x="295" y="506" font-family="Inter, sans-serif" font-size="13" fill="#94a3b8">e.g. Camry</text>
+
+  <rect x="490" y="480" width="190" height="42" rx="12" fill="#ffffff" stroke="#cbd5e1" />
+  <text x="505" y="506" font-family="Inter, sans-serif" font-size="13" fill="#94a3b8">0</text>
+
+  <rect x="700" y="480" width="190" height="42" rx="12" fill="#ffffff" stroke="#cbd5e1" />
+  <text x="715" y="506" font-family="Inter, sans-serif" font-size="13" fill="#94a3b8">100,000</text>
+
+  <rect x="910" y="480" width="220" height="42" rx="12" fill="#4f46e5" />
+  <text x="1020" y="506" font-family="Inter, sans-serif" font-weight="700" font-size="14" fill="#ffffff" text-anchor="middle">Apply Search</text>
+</svg>

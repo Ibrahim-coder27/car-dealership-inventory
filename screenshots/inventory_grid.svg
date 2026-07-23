@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#3730a3" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="suvGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <linearGradient id="sedanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="truckGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Grid Header -->
+  <text x="60" y="50" font-family="Inter, sans-serif" font-weight="900" font-size="26" fill="#ffffff">Vehicle Inventory Grid</text>
+
+  <!-- Card 1: Tesla Model Y -->
+  <g transform="translate(60, 80)">
+    <rect width="340" height="240" rx="20" fill="#ffffff" />
+    <rect width="340" height="90" rx="20" fill="url(#suvGrad)" />
+    <rect x="15" y="15" width="50" height="24" rx="8" fill="#ffffff" fill-opacity="0.3" />
+    <text x="40" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">SUV</text>
+    <rect x="230" y="15" width="95" height="24" rx="8" fill="#10b981" />
+    <text x="277" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">6 In Stock</text>
+
+    <text x="20" y="115" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#94a3b8" letter-spacing="1">TESLA</text>
+    <text x="20" y="140" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#0f172a">Model Y</text>
+    <text x="20" y="175" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#4f46e5">$48,990</text>
+
+    <rect x="20" y="190" width="300" height="38" rx="10" fill="#4f46e5" />
+    <text x="170" y="214" font-family="Inter, sans-serif" font-weight="700" font-size="13" fill="#ffffff" text-anchor="middle">Purchase Vehicle</text>
+  </g>
+
+  <!-- Card 2: Toyota Camry Hybrid -->
+  <g transform="translate(430, 80)">
+    <rect width="340" height="240" rx="20" fill="#ffffff" />
+    <rect width="340" height="90" rx="20" fill="url(#sedanGrad)" />
+    <rect x="15" y="15" width="60" height="24" rx="8" fill="#ffffff" fill-opacity="0.3" />
+    <text x="45" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">SEDAN</text>
+    <rect x="220" y="15" width="105" height="24" rx="8" fill="#10b981" />
+    <text x="272" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">12 In Stock</text>
+
+    <text x="20" y="115" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#94a3b8" letter-spacing="1">TOYOTA</text>
+    <text x="20" y="140" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#0f172a">Camry Hybrid</text>
+    <text x="20" y="175" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#4f46e5">$28,850</text>
+
+    <rect x="20" y="190" width="300" height="38" rx="10" fill="#4f46e5" />
+    <text x="170" y="214" font-family="Inter, sans-serif" font-weight="700" font-size="13" fill="#ffffff" text-anchor="middle">Purchase Vehicle</text>
+  </g>
+
+  <!-- Card 3: Ford F-150 Lightning -->
+  <g transform="translate(800, 80)">
+    <rect width="340" height="240" rx="20" fill="#ffffff" />
+    <rect width="340" height="90" rx="20" fill="url(#truckGrad)" />
+    <rect x="15" y="15" width="60" height="24" rx="8" fill="#ffffff" fill-opacity="0.3" />
+    <text x="45" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">TRUCK</text>
+    <rect x="230" y="15" width="95" height="24" rx="8" fill="#10b981" />
+    <text x="277" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">4 In Stock</text>
+
+    <text x="20" y="115" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#94a3b8" letter-spacing="1">FORD</text>
+    <text x="20" y="140" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#0f172a">F-150 Lightning</text>
+    <text x="20" y="175" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#4f46e5">$54,995</text>
+
+    <rect x="20" y="190" width="300" height="38" rx="10" fill="#4f46e5" />
+    <text x="170" y="214" font-family="Inter, sans-serif" font-weight="700" font-size="13" fill="#ffffff" text-anchor="middle">Purchase Vehicle</text>
+  </g>
+
+  <!-- Row 2 -->
+  <!-- Card 4: Honda Civic Type R -->
+  <g transform="translate(60, 350)">
+    <rect width="340" height="240" rx="20" fill="#ffffff" />
+    <rect width="340" height="90" rx="20" fill="#059669" />
+    <rect x="15" y="15" width="80" height="24" rx="8" fill="#ffffff" fill-opacity="0.3" />
+    <text x="55" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">HATCHBACK</text>
+    <rect x="220" y="15" width="105" height="24" rx="8" fill="#f59e0b" />
+    <text x="272" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">Low Stock (2)</text>
+
+    <text x="20" y="115" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#94a3b8" letter-spacing="1">HONDA</text>
+    <text x="20" y="140" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#0f172a">Civic Type R</text>
+    <text x="20" y="175" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#4f46e5">$44,795</text>
+
+    <rect x="20" y="190" width="300" height="38" rx="10" fill="#4f46e5" />
+    <text x="170" y="214" font-family="Inter, sans-serif" font-weight="700" font-size="13" fill="#ffffff" text-anchor="middle">Purchase Vehicle</text>
+  </g>
+
+  <!-- Card 5: BMW X5 M Sport (Out of Stock) -->
+  <g transform="translate(430, 350)">
+    <rect width="340" height="240" rx="20" fill="#ffffff" />
+    <rect width="340" height="90" rx="20" fill="url(#suvGrad)" />
+    <rect x="15" y="15" width="50" height="24" rx="8" fill="#ffffff" fill-opacity="0.3" />
+    <text x="40" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">SUV</text>
+    <rect x="220" y="15" width="105" height="24" rx="8" fill="#ef4444" />
+    <text x="272" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">Out of Stock</text>
+
+    <text x="20" y="115" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#94a3b8" letter-spacing="1">BMW</text>
+    <text x="20" y="140" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#0f172a">X5 M Sport</text>
+    <text x="20" y="175" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#4f46e5">$67,500</text>
+
+    <rect x="20" y="190" width="300" height="38" rx="10" fill="#e2e8f0" />
+    <text x="170" y="214" font-family="Inter, sans-serif" font-weight="700" font-size="13" fill="#94a3b8" text-anchor="middle">Out of Stock</text>
+  </g>
+
+  <!-- Card 6: Chevrolet Silverado 1500 -->
+  <g transform="translate(800, 350)">
+    <rect width="340" height="240" rx="20" fill="#ffffff" />
+    <rect width="340" height="90" rx="20" fill="url(#truckGrad)" />
+    <rect x="15" y="15" width="60" height="24" rx="8" fill="#ffffff" fill-opacity="0.3" />
+    <text x="45" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">TRUCK</text>
+    <rect x="230" y="15" width="95" height="24" rx="8" fill="#10b981" />
+    <text x="277" y="31" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#ffffff" text-anchor="middle">7 In Stock</text>
+
+    <text x="20" y="115" font-family="Inter, sans-serif" font-weight="800" font-size="10" fill="#94a3b8" letter-spacing="1">CHEVROLET</text>
+    <text x="20" y="140" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#0f172a">Silverado 1500</text>
+    <text x="20" y="175" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#4f46e5">$42,300</text>
+
+    <rect x="20" y="190" width="300" height="38" rx="10" fill="#4f46e5" />
+    <text x="170" y="214" font-family="Inter, sans-serif" font-weight="700" font-size="13" fill="#ffffff" text-anchor="middle">Purchase Vehicle</text>
+  </g>
+</svg>

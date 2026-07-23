@@ -4,11 +4,38 @@ A full-stack, enterprise-grade Single Page Application (SPA) designed for managi
 
 ---
 
-## 🌟 Key Highlights & AI Collaboration
+## 📸 Application Screenshots
 
-This application was engineered using an agentic AI-assisted workflow:
-- **ChatGPT (OpenAI)**: Leveraged for initial backend REST API architectural design, MongoDB Mongoose schema modeling (`User`, `Vehicle`), stateless JWT authentication middleware, and unit/integration testing with Jest & Supertest.
-- **Antigravity AI (Google DeepMind Agentic Assistant)**: Utilized for end-to-end frontend architecture, Tailwind v4 design system implementation, glassmorphic UI styling, React Context state management (`AuthProvider`), Vite dev server proxying, error handling refinement, and Vitest test suite context encapsulation.
+### 1. Main Dashboard & Inventory Stream
+![Main Dashboard](screenshots/dashboard.svg)
+
+### 2. Interactive Vehicle Inventory Grid
+![Vehicle Grid](screenshots/inventory_grid.svg)
+
+### 3. Authentication Portals (Login & Registration)
+| Login Portal | Registration Portal |
+| :---: | :---: |
+| ![Login Page](screenshots/login.svg) | ![Register Page](screenshots/register.svg) |
+
+---
+
+## My AI Usage
+
+### AI Tools Used
+- **ChatGPT (OpenAI)**: Leveraged for initial backend REST API architectural design, MongoDB Mongoose schema modeling (`User`, `Vehicle`), stateless JWT authentication middleware logic, and Jest & Supertest integration test generation.
+- **Gemini / Antigravity AI (Google DeepMind)**: Utilized as an agentic AI pair programmer for full-stack engineering, Tailwind CSS v4 design system implementation (`@theme`), glassmorphic UI styling, React Context state management (`AuthProvider`), Vite dev server proxying, database seeding (`npm run seed`), and Vitest test suite context resolution.
+
+### How I Used Them
+- **Backend Architecture & Database Modeling**: I used ChatGPT to structure the REST API endpoints (`/api/auth/*`, `/api/vehicles/*`), design Mongoose schemas with validation constraints, and generate Jest integration tests for role-based authorization.
+- **Frontend SPA & Design System**: I used Gemini / Antigravity AI to build the React 19 Single Page Application, write custom Tailwind v4 CSS utility tokens (`.glass-card`, `.btn-primary`), implement real-time inventory filtering (Make, Model, Price, Category tabs), and construct modal dialogs for Add/Edit/Restock operations.
+- **Testing & Debugging**: When frontend tests failed due to isolated component renders missing router context, I asked Gemini / Antigravity AI to diagnose the Vitest logs and wrap test components in `<AuthProvider>` and `<MemoryRouter>` providers. I also used Gemini to configure CORS middleware in `app.js` and setup Vite proxying to connect the dev server to the Express API seamlessly.
+
+### Reflection on AI Impact
+Using AI tools fundamentally accelerated the development workflow by eliminating boilerplate overhead and rapidly diagnosing cross-stack edge cases. 
+- **Rapid Prototyping**: Generating initial Express controller scaffolds and Mongoose models took minutes instead of hours, allowing more focus on business logic and security.
+- **TDD Acceleration**: Having AI draft Supertest integration assertions ensured that API contracts were strictly verified before UI components were mounted.
+- **UI/UX Excellence**: Gemini / Antigravity AI allowed me to create a wowed, state-of-the-art glassmorphic design system with micro-animations that feels premium and state-of-the-art.
+- **Root-Cause Analysis**: Rather than guessing why JWT auth or CORS origin calls failed in browser dev tools, AI log inspection pinpointed environment variable mismatches (`JWT_EXPIRES_IN`) and missing CORS middleware immediately, reducing context switching and manual debugging time.
 
 ---
 
@@ -179,6 +206,7 @@ Car_Dealership/
 │   │   └── index.css        # Tailwind v4 theme, Inter font, & animations
 │   ├── package.json
 │   └── vite.config.js
+├── screenshots/             # Visual application previews
 ├── PROMPTS.md               # Prompt engineering history & AI session log
 └── README.md
 ```
